@@ -1,0 +1,122 @@
+<p class="alert alert-danger mb-2 {{message_hidden}}" role="alert">
+    {{message}}
+</p>
+<form method="post" action="/add">
+    <div class="form-group row">
+        <div class="col-md-5 col-sm-12">
+            <label class="col-form-label d-block mb-1">Replicator's (your) given/first name</label>
+        </div>
+        <div class="col-md-7 col-sm-12">
+            <input type="text" class="form-control mb-1" name="repl_author_first">
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-md-5 col-sm-12">
+            <label class="col-form-label d-block mb-1">Replicator's family name</label>
+        </div>
+        <div class="col-md-7 col-sm-12">
+            <input type="text" class="form-control mb-1" name="repl_author_last">
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-md-5 col-sm-12">
+            <label class="col-form-label d-block">Type of work</label>
+        </div>
+        <div class="col-md-7 col-sm-12">
+            <select name="repl_level" class="form-control mb-1">
+                <option value="Bachelor thesis">Bachelor thesis</option>
+                <option value="Master thesis">Master thesis</option>
+                <option value="Doctoral thesis">Doctoral thesis</option>
+                <option value="other">other</option>
+            </select>
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-md-5 col-sm-12">
+            <label class="col-form-label d-block">Title</label>
+        </div>
+        <div class="col-md-7 col-sm-12">
+            <input type="text" class="form-control mb-1" name="repl_title">
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-md-5 col-sm-12">
+            <label class="col-form-label d-block">Year of submission</label>
+        </div>
+        <div class="col-md-7 col-sm-12">
+            <input type="number" min="2020" max="2070" step="1" class="form-control mb-1" name="repl_year">
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-md-5 col-sm-12">
+            <label class="col-form-label d-block">Abstract of replication</label>
+        </div>
+        <div class="col-md-7 col-sm-12">
+            <textarea name="repl_abstract" class="form-control mb-1" rows="8"></textarea>
+        </div>
+    </div>
+    <hr>
+    <div class="form-group row">
+        <div class="col-md-5 col-sm-12">
+            <label class="col-form-label d-block">Original study's full citation (APA style)</label>
+        </div>
+        <div class="col-md-7 col-sm-12">
+            <textarea name="orig_citation" class="form-control mb-1" rows="3"></textarea>
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-md-5 col-sm-12">
+            <label class="col-form-label d-block">Original study's DOI</label>
+        </div>
+        <div class="col-md-7 col-sm-12">
+            <input type="text" class="form-control mb-1" name="orig_doi" placeholder="starting with 10.">
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-md-5 col-sm-12">
+            <label class="col-form-label d-block">If DOI is missing, link to original study</label>
+        </div>
+        <div class="col-md-7 col-sm-12">
+            <input type="text" class="form-control mb-1" name="orig_link_alternative" placeholder="leave empty if DOI is given">
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-md-5 col-sm-12">
+            <label class="col-form-label d-block">Abstract of original study</label>
+        </div>
+        <div class="col-md-7 col-sm-12">
+            <textarea name="orig_abstract" class="form-control mb-1" rows="8"></textarea>
+        </div>
+    </div>
+    <hr>
+    <div class="form-group row">
+        <div class="col-md-5 col-sm-12">
+            <label class="col-form-label d-block">Replication result</label>
+        </div>
+        <div class="col-md-7 col-sm-12">
+            <select name="result" class="form-control mb-1">
+                <option value="Successful! Original results replicated successfully.">Original results replicated successfully</option>
+                <option value="Mostly successful! Original and replicated results match but only in effect direction.">Original and replicated results match but only in effect direction</option>
+                <option value="Somewhat successful! Original and replicated results match for some but not for other aspects.">Original and replicated results match for some but not for other aspects</option>
+                <option value="Rather unsuccessful! Most original results did not replicate successfully.">Most original results did not replicate successfully</option>
+                <option value="Unsuccessful! Original results did not replicate whatsoever.">Original results did not replicate whatsoever</option>
+                <option value="Not replicable! Data and/or methods could not be employed in comparable fashion.">Data and/or methods could not be employed in comparable fashion</option>
+                <option value="Success not determinable (elaborate!):">Success not determinable because of ... (elaborate below)</option>
+            </select>
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-md-5 col-sm-12">
+            <label class="col-form-label d-block">If success not determinable, elaborate here briefly:</label>
+        </div>
+        <div class="col-md-7 col-sm-12">
+            <textarea name="result_details" class="form-control mb-1" rows="3"></textarea>
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-md-5 col-sm-12"></div>
+        <div class="col-md-7 col-sm-12">
+            <input type="submit" class="form-control btn btn-primary" name="action" value="Submit replication">
+        </div>
+    </div>
+</form>

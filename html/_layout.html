@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="author" content="Mario Haim <haim@ifkw.lmu.de>">
+    <meta name="robots" content="noindex, nofollow">
+    <title>{{title}} &middot; Datenfrühstück</title>
+    <link href="/favicon.ico" rel="icon" type="image/vnd.microsoft.icon" />
+    <link href="/res/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="container clearfix">
+    <div class="row mt-3">
+        <div class="col-md-3 col-sm-12 mb-4">
+            <img src="/res/coffee.png" alt="Logo Datenfrühstück" class="my-4 mx-auto d-block" style="max-width: 35%;">
+            <nav class="list-group">
+                <a href="/" class="list-group-item list-group-item-action {{active_info}}">
+                    General Information
+                </a>
+                <a href="/studies" class="list-group-item list-group-item-action {{active_studies}}">
+                    Replications
+                </a>
+                <a href="/about" class="list-group-item list-group-item-action {{active_about}}">
+                    About
+                </a>
+                <a href="/add" class="list-group-item list-group-item-action list-group-item-light {{active_add}}">
+                    Add a Replication
+                </a>
+            </nav>
+        </div>
+        <div class="col-md-9 col-sm-12">
+            {{content}}
+        </div>
+    </div>
+</div>
+<footer class="container">
+    <hr class="mt-5 mb-1">
+    <p class="mb-3 text-center">
+        <a href="https://haim.it/imprint" class="text-muted">Imprint</a>
+    </p>
+</footer>
+</body>
+</html>

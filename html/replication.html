@@ -1,0 +1,22 @@
+<h2>{{repl_title}}</h2>
+<p class="lead">
+    {{repl_level}} of {{repl_author_first}} {{repl_author_last}} ({{repl_year}})
+</p>
+<div class="card mb-4">
+    <div class="card-body">
+        <h5 class="card-title">Original Study</h5>
+        <p class="card-text">{{orig_citation}}</p>
+        <p class="card-text"><strong>Abstract.</strong> {{orig_abstract}}</p>
+        <a href="{{link_external}}" class="card-link">Open original study</a>
+    </div>
+</div>
+<div class="card mb-4">
+    <div class="card-body">
+        <h5 class="card-title">Replication</h5>
+        <p class="card-text">{{repl_level}}, {{repl_author_first}} {{repl_author_last}}, {{repl_year}}</p>
+        <p class="card-text"><strong>Abstract.</strong> {{repl_abstract}}</p>
+    </div>
+</div>
+<p class="alert alert-{{result_code}}">
+    {{result}} {{result_details}}
+</p>
