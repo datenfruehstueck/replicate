@@ -25,6 +25,7 @@ class System {
 
         //collect replications
         $this->replications = new ModelHandler($this->db, $this->config, 'replication');
+        $this->replications->sql_filter = 'active = 1';
         $this->replications->sql_order = 'repl_year ASC, repl_author_last ASC, uid ASC';
         $this->replications->collect_entries();
 
@@ -67,6 +68,9 @@ class System {
         switch ($url_parts[0]) {
             case 'studies':
                 if($this->replication === NULL) {
+                    if(isset($_GET['activate'])) {
+                        $this->route_activate(strtolower($url_parts[1]));
+                    }
                     return $this->route_studies();
                 } else {
                     return $this->route_replication();
@@ -75,6 +79,7 @@ class System {
             case 'add':
                 return $this->route_add();
                 break;
+            case 'added':
             case 'about':
             case 'info':
             default:
@@ -209,14 +214,29 @@ class System {
                     'repl_title' => trim($_POST['repl_title']),
                     'repl_abstract' => trim($_POST['repl_abstract']),
                     'result' => $_POST['result'],
-                    'result_details' => ($_POST['result'] == 'Success not determinable (elaborate!):' ? trim($_POST['result_details']) : '')
+                    'result_details' => ($_POST['result'] == 'Success not determinable (elaborate!):' ? trim($_POST['result_details']) : ''),
+                    'active' => 0
                 ]));
                 if ($addedReplication) {
                     @mail($this->config['mail_team'],
                         'New replication added',
-                        'A new replication has just been added.',
+                        'A new replication has just been added: 
+>> Original study: '.$addedReplication->orig_citation.'
+>> Original study link: '.$addedReplication->link_external.'
+>> Original study abstract: '.$addedReplication->orig_abstract.'
+
+>> Future internal link: '.$this->config['main_url'].'/studies/' .$addedReplication->link_internal.' 
+>> Replicator: '.$addedReplication->repl_author_first.' '.$addedReplication->repl_author_last.' 
+>> Replication data: '.$addedReplication->repl_level.', '.$addedReplication->repl_year.' 
+>> Replication: '.$addedReplication->repl_title.' 
+>> Replication result: '.$addedReplication->result.' 
+>> Replication abstract: '.$addedReplication->repl_abstract.'
+
+It requires manual activation to become visible. You may activate it  by using this link: 
+'.$this->config['main_url'].'/studies/' . $addedReplication->link_internal.'?activate='.rawurlencode(md5($addedReplication->link_external)).' 
+',
                         'From: '.$this->config['mail_team']."\r\n".'X-Mailer: PHP/' . phpversion());
-                    $this->redirect('studies/' . $addedReplication->link_internal);
+                    $this->redirect('added');
                 } else {
                     $markers['message'] = 'Replication study could not be created.';
                 }
@@ -227,5 +247,22 @@ class System {
         $markers['message_hidden'] = $markers['message'] == '' ? 'd-none' : '';
         $this->output('add', $markers);
         return TRUE;
+    }
+
+    protected function route_activate($study_url_part) {
+        if(isset($_GET['activate'])) {
+            $unfilteredReplications = new ModelHandler($this->db, $this->config, 'replication');
+            $unfilteredReplications->sql_filter = 'active = 0';
+            $unfilteredReplications->collect_entries();
+            $linkedReplications = $unfilteredReplications->get_entries_by_field('link_internal', $study_url_part);
+            if (count($linkedReplications) > 0) {
+                if (rawurlencode(md5($linkedReplications[0]->link_external)) == $_GET['activate']) {
+                    $linkedReplications[0]->active = 1;
+                    if($linkedReplications[0]->update()) {
+                        $this->redirect('studies/'.$linkedReplications[0]->link_internal);
+                    }
+                }
+            }
+        }
     }
 }

@@ -16,6 +16,7 @@ class Replication extends AbstractModel {
     public $repl_abstract;
     public $result;
     public $result_details;
+    public $active;
 
     public $link_internal;
     public $link_external;

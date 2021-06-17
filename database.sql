@@ -17,7 +17,8 @@ CREATE TABLE `replication` (
   `repl_title` text NOT NULL,
   `repl_abstract` text NOT NULL,
   `result` enum('Successful! Original results replicated successfully.','Mostly successful! Original and replicated results match but only in effect direction.','Somewhat successful! Original and replicated results match for some but not for other aspects.','Rather unsuccessful! Most original results did not replicate successfully.','Unsuccessful! Original results did not replicate whatsoever.','Not replicable! Data and/or methods could not be employed in comparable fashion.','Success not determinable (elaborate!):') NOT NULL,
-  `result_details` text NOT NULL
+  `result_details` text NOT NULL,
+  `active` int(2) UNSIGNED NOT NULL default 0,
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4;
 
 
