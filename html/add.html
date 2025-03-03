@@ -20,13 +20,35 @@
     </div>
     <div class="form-group row">
         <div class="col-md-5 col-sm-12">
+            <label class="col-form-label d-block">For internal purposes only, please list all contributors' email addresses in case we want to contact you at some point</label>
+        </div>
+        <div class="col-md-7 col-sm-12">
+            <textarea name="repl_author_emails" class="form-control mb-1" rows="8"></textarea>
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-md-5 col-sm-12">
             <label class="col-form-label d-block">Type of work</label>
+        </div>
+        <div class="col-md-7 col-sm-12">
+            <select name="repl_type" class="form-control mb-1">
+                <option value="Replication">Replication</option>
+                <option value="Reproduction">Reproduction</option>
+                <option value="Reproduction & Replication">It's actually both, a reproduction and a replication</option>
+            </select>
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-md-5 col-sm-12">
+            <label class="col-form-label d-block">Work context</label>
         </div>
         <div class="col-md-7 col-sm-12">
             <select name="repl_level" class="form-control mb-1">
                 <option value="Bachelor thesis">Bachelor thesis</option>
                 <option value="Master thesis">Master thesis</option>
                 <option value="Doctoral thesis">Doctoral thesis</option>
+                <option value="Class activity">Class activity</option>
+                <option value="Research project">Research project</option>
                 <option value="other">other</option>
             </select>
         </div>
@@ -49,7 +71,7 @@
     </div>
     <div class="form-group row">
         <div class="col-md-5 col-sm-12">
-            <label class="col-form-label d-block">Abstract of replication</label>
+            <label class="col-form-label d-block">Abstract of your replication/reproduction</label>
         </div>
         <div class="col-md-7 col-sm-12">
             <textarea name="repl_abstract" class="form-control mb-1" rows="8"></textarea>
@@ -91,23 +113,23 @@
     <hr>
     <div class="form-group row">
         <div class="col-md-5 col-sm-12">
-            <label class="col-form-label d-block">Replication result</label>
+            <label class="col-form-label d-block">Replication/Reproduction result</label>
         </div>
         <div class="col-md-7 col-sm-12">
             <select name="result" class="form-control mb-1">
-                <option value="Successful! Original results replicated successfully.">Original results replicated successfully</option>
-                <option value="Mostly successful! Original and replicated results match but only in effect direction.">Original and replicated results match but only in effect direction</option>
-                <option value="Somewhat successful! Original and replicated results match for some but not for other aspects.">Original and replicated results match for some but not for other aspects</option>
-                <option value="Rather unsuccessful! Most original results did not replicate successfully.">Most original results did not replicate successfully</option>
-                <option value="Unsuccessful! Original results did not replicate whatsoever.">Original results did not replicate whatsoever</option>
-                <option value="Not replicable! Data and/or methods could not be employed in comparable fashion.">Data and/or methods could not be employed in comparable fashion</option>
+                <option value="Successful! Original results replicated/reproduced successfully.">Original results replicated/reproduced successfully</option>
+                <option value="Mostly successful! Original and replicated/reproduced results match but only in effect direction.">Original and replicated/reproduced results match but only in effect direction</option>
+                <option value="Somewhat successful! Original and replicated/reproduced results match for some but not for other aspects.">Original and replicated/reproduced results match for some but not for other aspects</option>
+                <option value="Rather unsuccessful! Most original results did not replicate/reproduce successfully.">Most original results did not replicate/reproduce successfully</option>
+                <option value="Unsuccessful! Original results did not replicate/reproduce whatsoever.">Original results did not replicate/reproduce whatsoever</option>
+                <option value="Not replicable/reproducible! Data and/or methods could not be employed in comparable fashion.">Data and/or methods could not be employed in comparable fashion</option>
                 <option value="Success not determinable (elaborate!):">Success not determinable because of ... (elaborate below)</option>
             </select>
         </div>
     </div>
     <div class="form-group row">
         <div class="col-md-5 col-sm-12">
-            <label class="col-form-label d-block">If success not determinable, elaborate here briefly:</label>
+            <label class="col-form-label d-block">Would you mind elaborating a bit on your results:</label>
         </div>
         <div class="col-md-7 col-sm-12">
             <textarea name="result_details" class="form-control mb-1" rows="3"></textarea>
@@ -116,7 +138,7 @@
     <div class="form-group row">
         <div class="col-md-5 col-sm-12"></div>
         <div class="col-md-7 col-sm-12">
-            <input type="submit" class="form-control btn btn-primary" name="action" value="Submit replication">
+            <input type="submit" class="form-control btn btn-primary" name="action" value="Submit">
         </div>
     </div>
 </form>

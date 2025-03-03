@@ -10,12 +10,14 @@ class Replication extends AbstractModel {
 	public $orig_abstract;
     public $repl_author_last;
 	public $repl_author_first;
+    public $repl_type;
     public $repl_level;
 	public $repl_year;
     public $repl_title;
     public $repl_abstract;
     public $result;
     public $result_details;
+	public $repl_author_emails;
     public $active;
 
     public $link_internal;
@@ -23,12 +25,12 @@ class Replication extends AbstractModel {
     public $result_numeric;
 
     public $result_dict = [
-        'Successful! Original results replicated successfully.' => 5,
-        'Mostly successful! Original and replicated results match but only in effect direction.' => 4,
-        'Somewhat successful! Original and replicated results match for some but not for other aspects.' => 3,
-        'Rather unsuccessful! Most original results did not replicate successfully.' => 2,
-        'Unsuccessful! Original results did not replicate whatsoever.' => 1,
-        'Not replicable! Data and/or methods could not be employed in comparable fashion.' => 0,
+        'Successful! Original results replicated/reproduced successfully.' => 5,
+        'Mostly successful! Original and replicated/reproduced results match but only in effect direction.' => 4,
+        'Somewhat successful! Original and replicated/reproduced results match for some but not for other aspects.' => 3,
+        'Rather unsuccessful! Most original results did not replicate/reproduce successfully.' => 2,
+        'Unsuccessful! Original results did not replicate/reproduce whatsoever.' => 1,
+        'Not replicable/reproducible! Data and/or methods could not be employed in comparable fashion.' => 0,
         'Success not determinable (elaborate!):' => -9
     ];
 

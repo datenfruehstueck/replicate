@@ -131,7 +131,7 @@ class System {
 
     protected function route_static($page = 'info') {
         $this->output($page, [
-            'num_replications' => $this->replications->count()
+            'num_total' => $this->replications->count()
         ]);
         return TRUE;
     }
@@ -141,23 +141,24 @@ class System {
         if($this->replications->count() > 0) {
             foreach ($this->replications->entries as $study) {
                 $studies .= '<tr>' .
-                    '<td><a href="/studies/' . $study->link_internal . '">' . $study->repl_title . '</a></td>' .
+                    '<td><a href="/studies/' . $study->link_internal . '">' . (($study->orig_doi == '' || $study->orig_doi === NULL) ? $study->repl_title : $study->orig_doi) . '</a></td>' .
                     '<td>' . $study->repl_author_last . ' (' . $study->repl_year . ')</td>' .
+                    '<td>'.$study->repl_type.'</td>' .
                     '<td>'.$study->repl_level.'</td>' .
-                    '<td><span title="' . $study->result . '">' . $study->get_result_code('emoji') . $study->result_details . '</span></td>' .
+                    '<td><span title="' . $study->result . '">' . $study->get_result_code('emoji') . '</span></td>' .
                     '</tr>';
             }
         } else {
-            $studies = '<tr><td colspan="4">Currently no replications are registered</td></tr>';
+            $studies = '<tr><td colspan="4">Currently no studies are registered</td></tr>';
         }
         $this->output('studies', [
-            'num_replications' => $this->replications->count(),
-            'num_replications_successful' => count($this->replications->get_entries_by_field('result_numeric', 5)),
-            'num_replications_mostlysuccessful' => count($this->replications->get_entries_by_field('result_numeric', 4)),
-            'num_replications_somewhatsuccessful' => count($this->replications->get_entries_by_field('result_numeric', 3)),
-            'num_replications_rathersuccessful' => count($this->replications->get_entries_by_field('result_numeric', 2)),
-            'num_replications_unsuccessful' => count($this->replications->get_entries_by_field('result_numeric', 1)),
-            'num_replications_notreplicable' => count($this->replications->get_entries_by_field('result_numeric', 0)),
+            'num_total' => $this->replications->count(),
+            'num_successful' => count($this->replications->get_entries_by_field('result_numeric', 5)),
+            'num_mostlysuccessful' => count($this->replications->get_entries_by_field('result_numeric', 4)),
+            'num_somewhatsuccessful' => count($this->replications->get_entries_by_field('result_numeric', 3)),
+            'num_rathersuccessful' => count($this->replications->get_entries_by_field('result_numeric', 2)),
+            'num_unsuccessful' => count($this->replications->get_entries_by_field('result_numeric', 1)),
+            'num_notreplicable' => count($this->replications->get_entries_by_field('result_numeric', 0)),
             'num_level_bachelor' => count($this->replications->get_entries_by_field('repl_level', 'Bachelor thesis')),
             'num_level_master' => count($this->replications->get_entries_by_field('repl_level', 'Master thesis')),
             'num_level_phd' => count($this->replications->get_entries_by_field('repl_level', 'Doctoral thesis')),
@@ -176,6 +177,7 @@ class System {
             'orig_abstract' => $this->replication->orig_abstract,
             'repl_author_last' => $this->replication->repl_author_last,
             'repl_author_first' => $this->replication->repl_author_first,
+            'repl_type' => $this->replication->repl_type,
             'repl_level' => $this->replication->repl_level,
             'repl_year' => $this->replication->repl_year,
             'repl_title' => $this->replication->repl_title,
@@ -209,27 +211,30 @@ class System {
                     'orig_abstract' => trim($_POST['orig_abstract']),
                     'repl_author_last' => trim($_POST['repl_author_last']),
                     'repl_author_first' => trim($_POST['repl_author_first']),
+                    'repl_type' => $_POST['repl_type'],
                     'repl_level' => $_POST['repl_level'],
                     'repl_year' => intval($_POST['repl_year']),
                     'repl_title' => trim($_POST['repl_title']),
                     'repl_abstract' => trim($_POST['repl_abstract']),
                     'result' => $_POST['result'],
-                    'result_details' => ($_POST['result'] == 'Success not determinable (elaborate!):' ? trim($_POST['result_details']) : ''),
+                    'result_details' => trim($_POST['result_details']),
+					'repl_author_emails' => trim($_POST['repl_author_emails']),
                     'active' => 0
                 ]));
                 if ($addedReplication) {
                     @mail($this->config['mail_team'],
-                        'New replication added',
-                        'A new replication has just been added: 
->> Original study: '.$addedReplication->orig_citation.'
->> Original study link: '.$addedReplication->link_external.'
+                        'New ' . $addedReplication->repl_type . ' added',
+                        'A new ' . $addedReplication->repl_type . ' has just been added: 
+'.$addedReplication->orig_citation.'
+'.$addedReplication->link_external.'
 >> Original study abstract: '.$addedReplication->orig_abstract.'
 
->> Future internal link: '.$this->config['main_url'].'/studies/' .$addedReplication->link_internal.' 
->> Replicator: '.$addedReplication->repl_author_first.' '.$addedReplication->repl_author_last.' 
->> Replication data: '.$addedReplication->repl_level.', '.$addedReplication->repl_year.' 
->> Replication: '.$addedReplication->repl_title.' 
->> Replication result: '.$addedReplication->result.' 
+Future internal link: '.$this->config['main_url'].'/studies/' .$addedReplication->link_internal.' 
+- Replicator: '.$addedReplication->repl_author_first.' '.$addedReplication->repl_author_last.' 
+- List of email addresses :'.$addedReplication->repl_author_emails.'
+- Replication data: '.$addedReplication->repl_type.', '.$addedReplication->repl_level.', '.$addedReplication->repl_year.' 
+- Replication: '.$addedReplication->repl_title.' 
+- Replication result: '.$addedReplication->result.' 
 >> Replication abstract: '.$addedReplication->repl_abstract.'
 
 It requires manual activation to become visible. You may activate it  by using this link: 
@@ -238,10 +243,10 @@ It requires manual activation to become visible. You may activate it  by using t
                         'From: '.$this->config['mail_team']."\r\n".'X-Mailer: PHP/' . phpversion());
                     $this->redirect('added');
                 } else {
-                    $markers['message'] = 'Replication study could not be created.';
+                    $markers['message'] = 'Study entry could not be created.';
                 }
             } else {
-                $markers['message'] = 'All fields must be filled in when submitting a replication.';
+                $markers['message'] = 'All fields must be filled in when submitting a replication/reproduction.';
             }
         }
         $markers['message_hidden'] = $markers['message'] == '' ? 'd-none' : '';
