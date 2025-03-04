@@ -1,11 +1,11 @@
 # Replication Management
 
-Collect and list student replications.
+Collect and list replications and reproductions.
 
 
 ## What's that?
 
-An easy-to-use and easy-to-install tool to have students add their replicative studies and list them to the public.
+An easy-to-use and easy-to-install tool to have students and other scholars add their redoing activities (replications, reproductions) and list them to the public.
 
 ## Installation
 
