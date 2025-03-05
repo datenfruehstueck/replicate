@@ -4,7 +4,7 @@
 <form method="post" action="/add">
     <div class="form-group row">
         <div class="col-md-5 col-sm-12">
-            <label class="col-form-label d-block mb-1">Replicator's (your) given/first name</label>
+            <label class="col-form-label d-block mb-1">Main corresponding replicator's (your) given/first name</label>
         </div>
         <div class="col-md-7 col-sm-12">
             <input type="text" class="form-control mb-1" name="repl_author_first">
@@ -12,10 +12,18 @@
     </div>
     <div class="form-group row">
         <div class="col-md-5 col-sm-12">
-            <label class="col-form-label d-block mb-1">Replicator's family name</label>
+            <label class="col-form-label d-block mb-1">Main corresponding replicator's family name</label>
         </div>
         <div class="col-md-7 col-sm-12">
             <input type="text" class="form-control mb-1" name="repl_author_last">
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-md-5 col-sm-12">
+            <label class="col-form-label d-block mb-1">Other replicators involved (one line per person, format: <code>Lastname, Firstname</code>)</label>
+        </div>
+        <div class="col-md-7 col-sm-12">
+            <textarea name="repl_author_etal" class="form-control mb-1" rows="4"></textarea>
         </div>
     </div>
     <div class="form-group row">

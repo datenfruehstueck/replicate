@@ -177,6 +177,7 @@ class System {
             'orig_abstract' => $this->replication->orig_abstract,
             'repl_author_last' => $this->replication->repl_author_last,
             'repl_author_first' => $this->replication->repl_author_first,
+            'repl_author_etal' => $this->replication->repl_author_etal,
             'repl_type' => $this->replication->repl_type,
             'repl_level' => $this->replication->repl_level,
             'repl_year' => $this->replication->repl_year,
@@ -211,6 +212,7 @@ class System {
                     'orig_abstract' => trim($_POST['orig_abstract']),
                     'repl_author_last' => trim($_POST['repl_author_last']),
                     'repl_author_first' => trim($_POST['repl_author_first']),
+                    'repl_author_etal' => implode('; ', preg_split('/(\r?\n)+/', trim($_POST['repl_author_etal']))),
                     'repl_type' => $_POST['repl_type'],
                     'repl_level' => $_POST['repl_level'],
                     'repl_year' => intval($_POST['repl_year']),
@@ -231,6 +233,7 @@ class System {
 
 Future internal link: '.$this->config['main_url'].'/studies/' .$addedReplication->link_internal.' 
 - Replicator: '.$addedReplication->repl_author_first.' '.$addedReplication->repl_author_last.' 
+- List of other replicators: '.$addedReplication->repl_author_etal.'
 - List of email addresses :'.$addedReplication->repl_author_emails.'
 - Replication data: '.$addedReplication->repl_type.', '.$addedReplication->repl_level.', '.$addedReplication->repl_year.' 
 - Replication: '.$addedReplication->repl_title.' 

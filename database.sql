@@ -16,6 +16,7 @@ CREATE TABLE IF NOT EXISTS `replication` (
   `orig_abstract` text NOT NULL,
   `repl_author_last` varchar(255) NOT NULL,
   `repl_author_first` varchar(255) NOT NULL,
+  `repl_author_etal` text NOT NULL,
   `repl_year` int(4) UNSIGNED NOT NULL,
   `repl_type` enum('Reproduction','Replication','Reproduction & Replication') NOT NULL,
   `repl_level` enum('Bachelor thesis','Master thesis','Doctoral thesis','Class activity','Research project','other') NOT NULL DEFAULT 'Bachelor thesis',

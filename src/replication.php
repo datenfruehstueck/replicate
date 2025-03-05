@@ -10,6 +10,7 @@ class Replication extends AbstractModel {
 	public $orig_abstract;
     public $repl_author_last;
 	public $repl_author_first;
+	public $repl_author_etal;
     public $repl_type;
     public $repl_level;
 	public $repl_year;
